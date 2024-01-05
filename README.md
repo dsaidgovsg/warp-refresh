@@ -35,6 +35,7 @@ schtasks /Delete /TN "WARP auto-connect refresh" /F
 
 ```bat
 :: Downloads the .vbs file into designated file path
+:: NOTE: this line is to be directly run in cmd (to run powershell on behalf for convenience), and not directly in powershell
 powershell -c "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/dsaidgovsg/warp-refresh/main/warp-refresh.vbs' -OutFile '%UserProfile%\\Documents\\warp-refresh.vbs'
 
 :: Installs and runs script as a scheduled task
