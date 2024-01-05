@@ -11,7 +11,7 @@ Option Explicit
 ' Since VBScript cannot print to stdout, this script writes to a log file instead (warp-refresh.log, max 100 lines).
 
 ' To create a new Windows scheduled task (runs every 5 minutes to check, assumes this file is saved as "%UserProfile%\Documents\warp-refresh.vbs"):
-' schtasks /Create /SC minute /MO 5 /TN "WARP auto-connect refresh" /TR "%UserProfile%\Documents\warp-refresh.vbs"
+' schtasks /Create /SC minute /MO 5 /TN "WARP auto-connect refresh" /TR "WScript.exe \"%UserProfile%\Documents\warp-refresh.vbs\""
 ' To delete the already scheduled task:
 ' schtasks /Delete /TN "WARP auto-connect refresh" /F
 
