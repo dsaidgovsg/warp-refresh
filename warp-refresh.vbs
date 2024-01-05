@@ -15,14 +15,18 @@ Option Explicit
 ' To delete the already scheduled task:
 ' schtasks /Delete /TN "WARP auto-connect refresh" /F
 
-Dim secs_req, secs_left, i
+Dim secs_req, secs_left, no_secs, i
 secs_req = 360
+no_secs = 2147483647
 
 ' Loop check-refresh up to 5 tries (with 3 seconds delay in between)
 For i = 1 To 5
     secs_left = GetSecsLeft()
 
-    If secs_left > secs_req Then
+    If secs_left = no_secs Then
+        WriteToLogFile "WARP does not seem to be in disconnected state, not performing any action"
+        Exit For
+    ElseIf secs_left > secs_req Then
         WriteToLogFile "WARP auto-connect timeout is " & secs_left & "s, more than " & secs_req & "s, no actions required"
         Exit For
     Else
@@ -37,7 +41,7 @@ Next
 TrimFile
 
 Function GetSecsLeft()
-    Dim oShell, tempFileName, fso, tempFile, output, secs_left
+    Dim oShell, tempFileName, fso, tempFile, output, secs_left, outputArray
     Set oShell = CreateObject("WScript.Shell")
     Set fso = CreateObject("Scripting.FileSystemObject")
 
@@ -54,7 +58,20 @@ Function GetSecsLeft()
     ' Delete the temporary file
     fso.DeleteFile(tempFileName)
 
-    secs_left = CInt(Split(output, " ")(3))
+    outputArray = Split(output, " ")
+    If UBound(outputArray) >= 3 Then
+        If IsNumeric(outputArray(3)) Then
+            ' Already in disconnected state (or disconnected before) and has a remaining auto-connect timeout
+            secs_left = CInt(outputArray(3))
+        Else
+            ' Unexpected case, perhaps the command really got deprecated
+            secs_left = no_secs
+        End If
+    Else
+        ' Never in disconnected state before
+        secs_left = no_secs
+    End If
+
     GetSecsLeft = secs_left
 End Function
 
