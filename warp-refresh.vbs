@@ -59,6 +59,8 @@ Function GetSecsLeft()
     fso.DeleteFile(tempFileName)
 
     outputArray = Split(output, " ")
+
+    ' And operator in VBScript is not short-circuiting, so cannot combine
     If UBound(outputArray) >= 3 Then
         If IsNumeric(outputArray(3)) Then
             ' Already in disconnected state (or disconnected before) and has a remaining auto-connect timeout
