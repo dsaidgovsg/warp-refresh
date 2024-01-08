@@ -3,8 +3,8 @@
 Contains scheduled task to refresh Cloudflare WARP auto-connect timeout.
 
 Currently **Windows** only, since the `warp-refresh.vbs` is written in VBScript to be run as a
-Windows Scheduled Task. (MacOS users are welcome to try converting the script and packaging it into
-a similarly form.)
+Windows Scheduled Task. (MacOS users are welcome to try converting the script and re-purposing it
+into a similarly runnable package.)
 
 *If you are a developer on Windows dev machine with Cloudflare WARP installed, and somewhat bothered
 by occasional interruptions to video calls, or strange TLS cert error without realizing WARP
