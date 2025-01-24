@@ -16,7 +16,7 @@ Download [`warp-refresh.vbs`](warp-refresh.vbs) into `%UserProfile%\Documents\wa
 run the following in `cmd`:
 
 ```bat
-schtasks /Create /SC minute /MO 5 /TN "WARP auto-connect refresh" /TR "WScript.exe \"%UserProfile%\Documents\warp-refresh.vbs\""
+schtasks /Create /SC minute /MO 60 /TN "WARP auto-connect refresh" /TR "WScript.exe \"%UserProfile%\Documents\warp-refresh.vbs\""
 ```
 
 Note that the task is designated to run with your current user and does not require escalated
@@ -39,7 +39,7 @@ schtasks /Delete /TN "WARP auto-connect refresh" /F
 powershell -c "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/dsaidgovsg/warp-refresh/main/warp-refresh.vbs' -OutFile '%UserProfile%\\Documents\\warp-refresh.vbs'
 
 :: Installs and runs script as a scheduled task
-schtasks /Create /SC minute /MO 5 /TN "WARP auto-connect refresh" /TR "WScript.exe \"%UserProfile%\Documents\warp-refresh.vbs\""
+schtasks /Create /SC minute /MO 60 /TN "WARP auto-connect refresh" /TR "WScript.exe \"%UserProfile%\Documents\warp-refresh.vbs\""
 ```
 
 ## How the script works
